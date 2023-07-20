@@ -10,6 +10,7 @@ export const zhSpacingColbase = 10
 export const zhSpacingColLg = 15
 
 export const zhBorderWidth= 1
+export const zhBorderColor="#f0f0f0"
 export const zhBorderRadius= 4
 
 

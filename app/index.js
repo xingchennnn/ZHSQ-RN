@@ -1,15 +1,21 @@
 import { View, Text, StatusBar, Image, TextInput, Button, Pressable, Alert, ToastAndroid } from 'react-native'
 import React, { useState } from 'react'
-import { gss, zhThemeColor } from '../global'
+import { gss, zhSpacingColbase, zhThemeColor } from '../global'
 
 // 必须事先导入未来要用到的app中使用的图片
 import eyeclose from '../assets/img/eye-close.png'
 import eyeopen from '../assets/img/eye-open.png'
 import { userLogin } from '../service'
-import { Link } from 'expo-router'
+import { Link, useRouter } from 'expo-router'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 //Expo Router的路由系统中页面组件名与路由地址无关，且可以任意命名，甚至无名
 export default function Login() {
+    // 注意:hook函数只能在顶层调用
+    
+    let router = useRouter()
+
+
   let [btnBgColor, setbtnBgColor] = useState(zhThemeColor)
   let [phone, setphone] = useState('13501234567')
   let [pwd, setpwd] = useState('123456')
@@ -37,11 +43,13 @@ export default function Login() {
 
     // 请求参数进行登录、
     let data = await userLogin(p1,p2)
-    console.log(data)
+    // console.log(data)
     if(data.code === 2000){ //登录成功
-      ToastAndroid.show('欢迎回来',ToastAndroid.SHORT)  //消息 / 吐司对话框持续时长
       // 在客户端中保存当前的身份信息
-     
+      AsyncStorage.setItem('userToken',data.token ,()=>{
+        router.replace('/tabs/home')
+        ToastAndroid.show('欢迎回来',ToastAndroid.SHORT)  //消息 / 吐司对话框持续时长
+      })
     }else{   //登录失败
       Alert.alert('失败' , '登录失败!服务器返回错误信息'+data.msg ,[{'text':'确定'}])
     }
@@ -86,8 +94,16 @@ export default function Login() {
       </Pressable>
       {/* F6:忘记密码超链接 */}
       {/* 因为RN自身没有提供路由和导航功能 ,所以也就没有提供超链接 */}
+      <Link href='/find-pwd' style={{color:zhThemeColor , textAlign:'center',
+      marginTop:zhSpacingColbase*2}}>找回密码</Link>
+      {/* <Link href="/tabs/my">我的</Link> */}
+      {/* <Link href="/tabs/home">主页</Link> */}
+      {/* <Link href="/tabs/community">物业</Link> */}
+      {/* <Link href="/tabs/property">社区</Link> */}
       
-      <Link href="/tabs/my">我的</Link>
+      {/* <Text onPress={_=>{router.push('/tabs/community')}}>脚本跳转</Text> */}
+      {/* <Text onPress={_=>{router.push('/mall/list')}}>商品列表</Text> */}
+
     </View>
   )
 }
