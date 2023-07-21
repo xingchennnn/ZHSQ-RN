@@ -57,3 +57,49 @@ export let mallIndex = async()=>{
   // 返回主题信息
   return data
 }
+
+/**
+ * 接口地址：mall/goods/list
+请求方式：GET
+查询参数： 
+名称	必填	类型	说明
+tid	可选	int	待查询的商品类型
+1-折扣商品，默认值
+2-新年精选
+3-品牌精选
+...
+order	可选	string	查询结果排序方法，可选值：
+soldcount：销量，默认值
+price-asc：价格升序排列
+price-desc：价格降序排列
+ */
+export let mallGoodsList= async(tid=1 , order="soldcount")=>{
+  let uri = base + `mall/goods/list?tid=${tid}&order=${order}`
+  
+  // 发起异步请求，得到响应数据
+  let res = await fetch(uri)
+  // 读取响应信息，得到json内容
+  let data= await res.json()
+  // 返回主题信息
+  return data
+}
+
+/**
+ * 7.3、返回指定编号的商品详情
+  接口地址：mall/goods/details
+  请求方式：GET
+  查询参数： 
+  名称	必填	类型	说明
+  gid	必需	int	待查询的商品编号
+
+ */
+  export let mallGoodsDetail= async(gid)=>{
+    let uri = base + `mall/goods/details?gid=${gid}`
+    
+    // 发起异步请求，得到响应数据
+    let res = await fetch(uri)
+    // 读取响应信息，得到json内容
+    let data= await res.json()
+    // 返回主题信息
+    return data
+  }

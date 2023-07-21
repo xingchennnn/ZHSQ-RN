@@ -8,6 +8,7 @@ export default function ZhTabsBody({nub}) {
   return (
     <View style={ss.body}>
       <View style={{display:nub===0?'flex':'none'}}>
+      {/* <View style={{display:'flex'}}> */}
         <ZhTab0/>
       </View>
       <View style={{display:nub===1?'flex':'none'}}>
@@ -22,7 +23,7 @@ export default function ZhTabsBody({nub}) {
 
 let ss = StyleSheet.create({
   body:{
-    // backgroundColor:'pink',
+    // backgroundColor:'blue',
     flex:1,
   }
 })

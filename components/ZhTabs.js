@@ -5,7 +5,7 @@ import ZhTabsBody from './ZhTabsBody'
 
 export default function ZhTabs() {
   let [indx,setindx] =useState(0) 
-  
+
   //切换页签- 传递给子组件ZhTabsHeader，用于获取子组件的数据
   // let switchTab=(i)=>{
   //   console.log('父组件接收到子组件1传来的数据' ,i)
@@ -25,7 +25,7 @@ export default function ZhTabs() {
 
 let ss=StyleSheet.create({
   tabs:{
-    // backgroundColor:'#FF0',
+    backgroundColor:'#FFF',
     flex:1,
   }
 })

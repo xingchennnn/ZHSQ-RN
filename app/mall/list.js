@@ -7,7 +7,8 @@ import ZhTabs from '../../components/ZhTabs'
 
 
 //上下文第一步, 创建上下文对象,并导出,供子孙使用
-export let GoodsTypesCtx = React.createContext()
+import { GoodsTypesCtx } from '../../ctx'
+// export let GoodsTypesCtx = React.createContext()
 
 export default function List() {
   let [userinfo ,setuserinfo] = useState({})
