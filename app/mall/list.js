@@ -1,6 +1,5 @@
 import { View, Text, StatusBar } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { Link } from 'expo-router'
 import { mallIndex } from '../../service'
 import ZhSwiper from '../../components/ZhSwiper'
 import ZhTabs from '../../components/ZhTabs'
@@ -13,7 +12,7 @@ import { GoodsTypesCtx } from '../../ctx'
 export default function List() {
   let [userinfo ,setuserinfo] = useState({})
   let [carousels ,setcarousels] = useState({})
-  let [goodsTypes ,setgoodsTypes] = useState({})
+  let [goodsTypes ,setgoodsTypes] = useState([])
 
 
   useEffect(()=>{

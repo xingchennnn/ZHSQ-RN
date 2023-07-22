@@ -99,7 +99,7 @@ export let mallGoodsList= async(tid=1 , order="soldcount")=>{
     // 发起异步请求，得到响应数据
     let res = await fetch(uri)
     // 读取响应信息，得到json内容
-    let data= await res.json()
+    let data=  res.json()
     // 返回主题信息
     return data
   }

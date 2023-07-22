@@ -1,8 +1,10 @@
-import { View, Text, Image, useWindowDimensions, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, Image, useWindowDimensions, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useLocalSearchParams, useRouter, useSearchParams,Stack } from 'expo-router'
 import { base, mallGoodsDetail } from '../../service'
-import { zhBorderWidth, zhSpacingColLg, zhSpacingColSm, zhSpacingColbase, zhSpacingRowLg, zhThemeColor } from '../../global'
+import { zhBorderColor, zhBorderWidth, zhSpacingColLg, zhSpacingColSm, zhSpacingColbase, zhSpacingRowLg, zhSpacingRowbase, zhThemeColor } from '../../global'
+import {WebView} from "react-native-webview"
+import AutoHeightWebView from 'react-native-autoheight-webview'
 
 export default function Detail() {
   let [goods, setgoods] = useState({})
@@ -23,15 +25,17 @@ export default function Detail() {
     //2.根据此gid异步查询服务器端接口数据
     (async () => {
       let data = await mallGoodsDetail(gid)
+      // console.log('获取到的值',data)
+      data.details = data.details.replace(/src="img/g,`src="${base}img`)
+      data.details = data.details.replace(/<img/g,`<img style="width:100%"`)
       setgoods(data)
     })()
   }, [gid])
-  console.log(goods)
+  // console.log(goods)
 
   return (
-    <View>
+    <ScrollView style={{height:'100%'}}>
       {/* f0:动态修改导航器的内容 */}
-      
       <Stack.Screen options={{title:goods.shortTitle}}/>
       {/* F1: 顶部的banner图片*/}
       <Image style={{ width: width, height: width }} source={{ uri: base + goods.mainPic }} />
@@ -60,8 +64,15 @@ export default function Detail() {
         </TouchableOpacity>
       </View>
       {/* F7: 商品详情标题字 */}
+      <Text style={ss.f7}>商品详情</Text>
       {/* F8: 商品详细介绍 */}
-    </View>
+      {/* <WebView source={{uri:'https://www.tmooc.cn'}} /> */}
+      {/* <Text>{goods.details}</Text> */}
+    
+        <WebView style={{height:5000}} source={{html:goods.details}} />
+        {/* <AutoHeightWebView  source={{html:goods.details}}></AutoHeightWebView> */}
+        {/* <Text onPress={_=>{console.log('123132')}}>{goods.details}</Text> */}
+    </ScrollView>
   )
 }
 let ss = StyleSheet.create({
@@ -89,7 +100,7 @@ let ss = StyleSheet.create({
   buy:{
     borderColor:zhThemeColor,
     color:zhThemeColor,
-    backgroundColor:"#afa",
+    backgroundColor:"#cfc",
     borderWidth:zhBorderWidth,
     textAlign:'center',
     paddingVertical:zhSpacingColSm*2,
@@ -104,6 +115,13 @@ let ss = StyleSheet.create({
     textAlign:'center',
     paddingVertical:zhSpacingColSm*2,
     paddingHorizontal:zhSpacingRowLg*2,
+  },
+  f7:{
+    fontSize:15,
+    color:'#777',
+    padding:zhSpacingRowbase,
+    borderBottomColor:zhBorderColor,
+    borderBottomWidth:zhBorderWidth,
   },
 
 })

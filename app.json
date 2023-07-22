@@ -1,7 +1,7 @@
 {
   "expo": {
-    "scheme":"zh",
-    "name": "ZHSQ-RN",
+    "scheme": "zhsq",
+    "name": "EZ",
     "slug": "ZHSQ-RN",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -20,12 +20,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/0.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.batian233.ZHSQRN"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ffccc132-ddd7-4f8b-a742-823ce761f113"
+      }
     }
   }
 }
